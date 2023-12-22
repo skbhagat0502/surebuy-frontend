@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://surebuy-api.vercel.app",
+        target: "https://surebuy-api.vercel.app/",
         changeOrigin: true,
         ws: true,
       },
