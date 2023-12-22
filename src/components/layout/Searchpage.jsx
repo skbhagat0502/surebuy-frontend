@@ -1,6 +1,6 @@
 import Search from "./Search";
 import Layout from "./Layout";
-import Metadata from "./Metadata";
+import Metadata from "./MetaData";
 import { Fragment, useState } from "react";
 const SearchPage = () => {
   return (

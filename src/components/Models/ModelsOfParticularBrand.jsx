@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getBrandDetails, clearErrors } from "../../actions/brandAction";
 import Layout from "../../components/layout/Layout";
 import Loader from "../layout/Loader/Loader";
-import MetaData from "../layout/Metadata";
+import MetaData from "../layout/MetaData";
 
 const ModelsOfParticularBrand = () => {
   const params = useParams();
