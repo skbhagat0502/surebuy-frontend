@@ -21,15 +21,23 @@ import {
   MODEL_DETAILS_SUCCESS,
   CLEAR_ERRORS,
 } from "../constants/modelConstant";
+const apiUrl = import.meta.env.VITE_REACT_API_URL;
 
 // Get All MODELS
 export const getModel = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_MODELS_REQUEST });
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    let link = `${apiUrl}/api/v1/models`;
 
-    let link = `/api/v1/models`;
-
-    const { data } = await axios.get(link);
+    const { data } = await axios.get(link, config);
 
     dispatch({
       type: ALL_MODELS_SUCCESS,
@@ -46,8 +54,15 @@ export const getModel = () => async (dispatch) => {
 export const getAdminModel = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_MODELS_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/admin/models`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/admin/models`, config);
 
     dispatch({
       type: ADMIN_MODELS_SUCCESS,
@@ -65,13 +80,16 @@ export const getAdminModel = () => async (dispatch) => {
 export const createModel = (modelData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_MODEL_REQUEST });
-
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
-
     const { data } = await axios.post(
-      `/api/v1/admin/model/new`,
+      `${apiUrl}/api/v1/admin/model/new`,
       modelData,
       config
     );
@@ -93,12 +111,16 @@ export const updateModel = (id, modelData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_MODEL_REQUEST });
 
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
-
     const { data } = await axios.put(
-      `/api/v1/admin/model/${id}`,
+      `${apiUrl}/api/v1/admin/model/${id}`,
       modelData,
       config
     );
@@ -118,8 +140,18 @@ export const updateModel = (id, modelData) => async (dispatch) => {
 export const deleteModel = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_MODEL_REQUEST });
-
-    const { data } = await axios.delete(`/api/v1/admin/model/${id}`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.delete(
+      `${apiUrl}/api/v1/admin/model/${id}`,
+      config
+    );
 
     dispatch({
       type: DELETE_MODEL_SUCCESS,
@@ -137,8 +169,15 @@ export const deleteModel = (id) => async (dispatch) => {
 export const getModelDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: MODEL_DETAILS_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/model/${id}`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/model/${id}`, config);
 
     dispatch({
       type: MODEL_DETAILS_SUCCESS,
@@ -156,8 +195,15 @@ export const getModelDetails = (id) => async (dispatch) => {
 export const calculatePrice = (deviceCondn) => async (dispatch) => {
   try {
     dispatch({ type: NEW_DEVICE_PRICE_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/model/${id}`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/model/${id}`, config);
 
     dispatch({
       type: NEW_DEVICE_PRICE_SUCCESS,

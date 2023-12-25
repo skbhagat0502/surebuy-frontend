@@ -18,13 +18,14 @@ import {
   CUT_DETAILS_CONSTANT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/cutConstant";
+const apiUrl = import.meta.env.VITE_REACT_API_URL;
 
 // Get All cuts
 export const getAllCuts = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_CUT_CONSTANT_REQUEST });
 
-    let link = `/api/v1/cuts`;
+    let link = `${apiUrl}/api/v1/cuts`;
 
     const { data } = await axios.get(link);
 
@@ -44,8 +45,15 @@ export const getAllCuts = () => async (dispatch) => {
 export const getAdminCuts = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_CUT_CONSTANT_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/admin/cuts`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/admin/cuts`, config);
     dispatch({
       type: ADMIN_CUT_CONSTANT_SUCCESS,
       payload: data,
@@ -62,12 +70,19 @@ export const getAdminCuts = () => async (dispatch) => {
 export const createCut = (cutData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_CUT_CONSTANT_REQUEST });
-
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
-
-    const { data } = await axios.post(`/api/v1/admin/cut/new`, cutData, config);
+    const { data } = await axios.post(
+      `${apiUrl}/api/v1/admin/cut/new`,
+      cutData,
+      config
+    );
 
     dispatch({
       type: CREATE_CUT_CONSTANT_SUCCESS,
@@ -85,13 +100,17 @@ export const createCut = (cutData) => async (dispatch) => {
 export const updateCut = (id, cutData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_CUT_CONSTANT_REQUEST });
-
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
 
     const { data } = await axios.put(
-      `/api/v1/admin/cut/${id}`,
+      `${apiUrl}/api/v1/admin/cut/${id}`,
       cutData,
       config
     );
@@ -112,8 +131,15 @@ export const updateCut = (id, cutData) => async (dispatch) => {
 export const getCutDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: CUT_DETAILS_CONSTANT_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/cut/${id}`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/cut/${id}`, config);
 
     dispatch({
       type: CUT_DETAILS_CONSTANT_SUCCESS,

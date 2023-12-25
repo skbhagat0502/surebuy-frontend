@@ -21,15 +21,23 @@ import {
   BRAND_DETAILS_FAIL,
   CLEAR_ERRORS,
 } from "../constants/brandConstant";
+const apiUrl = import.meta.env.VITE_REACT_API_URL;
 
 // Get All brands
 export const getBrand = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_BRANDS_REQUEST });
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    let link = `${apiUrl}/api/v1/brands`;
 
-    let link = `/api/v1/brands`;
-
-    const { data } = await axios.get(link);
+    const { data } = await axios.get(link, config);
 
     dispatch({
       type: ALL_BRANDS_SUCCESS,
@@ -47,8 +55,15 @@ export const getBrand = () => async (dispatch) => {
 export const getAdminBrand = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_BRANDS_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/admin/brands`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/admin/brands`, config);
 
     dispatch({
       type: ADMIN_BRANDS_SUCCESS,
@@ -66,13 +81,17 @@ export const getAdminBrand = () => async (dispatch) => {
 export const createBrand = (brandData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_BRAND_REQUEST });
-
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
 
     const { data } = await axios.post(
-      `/api/v1/admin/brand/new`,
+      `${apiUrl}/api/v1/admin/brand/new`,
       brandData,
       config
     );
@@ -94,12 +113,17 @@ export const updateBrand = (id, brandData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_BRAND_REQUEST });
 
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
 
     const { data } = await axios.put(
-      `/api/v1/admin/brand/${id}`,
+      `${apiUrl}/api/v1/admin/brand/${id}`,
       brandData,
       config
     );
@@ -120,8 +144,18 @@ export const updateBrand = (id, brandData) => async (dispatch) => {
 export const deleteBrand = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_BRAND_REQUEST });
-
-    const { data } = await axios.delete(`/api/v1/admin/brand/${id}`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.delete(
+      `${apiUrl}/api/v1/admin/brand/${id}`,
+      config
+    );
 
     dispatch({
       type: DELETE_BRAND_SUCCESS,
@@ -138,8 +172,15 @@ export const deleteBrand = (id) => async (dispatch) => {
 export const getBrandDetails = (id) => async (dispatch) => {
   try {
     dispatch({ type: BRAND_DETAILS_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/brand/${id}`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/brand/${id}`, config);
     dispatch({
       type: BRAND_DETAILS_SUCCESS,
       payload: data.brand,

@@ -18,13 +18,14 @@ import {
   DELETE_VARIANT_FAIL,
   CLEAR_ERRORS,
 } from "../constants/variantConstant";
+const apiUrl = import.meta.env.VITE_REACT_API_URL;
 
 // Get All MODELS
 export const getVariant = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_VARIANTS_REQUEST });
 
-    let link = `/api/v1/variants`;
+    let link = `${apiUrl}/api/v1/variants`;
 
     const { data } = await axios.get(link);
 
@@ -44,8 +45,15 @@ export const getVariant = () => async (dispatch) => {
 export const getAdminVariant = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_VARIANTS_REQUEST });
-
-    const { data } = await axios.get(`/api/v1/admin/variants`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.get(`${apiUrl}/api/v1/admin/variants`, config);
 
     dispatch({
       type: ADMIN_VARIANTS_SUCCESS,
@@ -63,13 +71,17 @@ export const getAdminVariant = () => async (dispatch) => {
 export const createVariant = (variantData) => async (dispatch) => {
   try {
     dispatch({ type: CREATE_VARIANT_REQUEST });
-
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
 
     const { data } = await axios.post(
-      `/api/v1/admin/variant/new`,
+      `${apiUrl}/api/v1/admin/variant/new`,
       variantData,
       config
     );
@@ -91,12 +103,16 @@ export const updateVariant = (id, variantData) => async (dispatch) => {
   try {
     dispatch({ type: UPDATE_VARIANT_REQUEST });
 
+    const token = localStorage.getItem("token");
     const config = {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
     };
-
     const { data } = await axios.put(
-      `/api/v1/admin/variant/${id}`,
+      `${apiUrl}/api/v1/admin/variant/${id}`,
       variantData,
       config
     );
@@ -117,8 +133,18 @@ export const updateVariant = (id, variantData) => async (dispatch) => {
 export const deleteVariant = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_VARIANT_REQUEST });
-
-    const { data } = await axios.delete(`/api/v1/admin/variant/${id}`);
+    const token = localStorage.getItem("token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      withCredentials: true,
+    };
+    const { data } = await axios.delete(
+      `${apiUrl}/api/v1/admin/variant/${id}`,
+      config
+    );
 
     dispatch({
       type: DELETE_VARIANT_SUCCESS,
