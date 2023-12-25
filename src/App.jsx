@@ -39,6 +39,7 @@ import OrderDetails from "./components/orders/OrderDetails";
 import UpdateCut from "./components/admin/UpdateCut";
 import SearchPage from "./components/layout/Searchpage";
 import ScrollToTop from "./components/layout/ScrollToTop";
+import ProtectedRoute from "./components/layout/ProtectedRoute";
 
 function App() {
   const { user, isAuthenticated } = useSelector((state) => state.user);
@@ -84,54 +85,114 @@ function App() {
           <Route exact path="/model/:id/round2-sub2" element={<Round2sub2 />} />
           <Route exact path="/model/:id/round2-sub3" element={<Round2sub3 />} />
           <Route exact path="/model/:id/round2-sub4" element={<Round2sub4 />} />
-          {isAuthenticated && (
+          <Route exact path="/model/:id/shipping" element={<ProtectedRoute />}>
             <Route exact path="/model/:id/shipping" element={<Shipping />} />
-          )}
-          {isAuthenticated && (
+          </Route>
+          <Route exact path="/order/:id" element={<ProtectedRoute />}>
             <Route exact path="/order/:id" element={<OrderDetails />} />
-          )}
-          {isAuthenticated && (
+          </Route>
+          <Route exact path="/model/:id/checkout" element={<ProtectedRoute />}>
             <Route exact path="/model/:id/checkout" element={<Checkout />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/dashboard"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/dashboard" element={<AdminPanel />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/users"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/users" element={<UsersList />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/orders"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/orders" element={<OrderList />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/inventory"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/inventory" element={<Inventory />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/brand/new"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/brand/new" element={<NewBrand />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/model/new"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/model/new" element={<NewModel />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/variant/new"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/variant/new" element={<NewVariant />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/model/:id"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/model/:id" element={<UpdateModel />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/brand/:id"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/brand/:id" element={<UpdateBrand />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/user/:id"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/user/:id" element={<UpdateUser />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/admin/order/:id"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/admin/order/:id" element={<ProcessOrder />} />
-          )}
-          {isAuthenticated && user?.role === "admin" && (
+          </Route>
+          <Route
+            exact
+            path="/cut/:id"
+            isAdmin={true}
+            element={<ProtectedRoute />}
+          >
             <Route exact path="/cut/:id" element={<UpdateCut />} />
-          )}
-          {isAuthenticated && (
+          </Route>
+          <Route exact path="/mysellings" element={<ProtectedRoute />}>
             <Route exact path="/mysellings" element={<MyOrders />} />
-          )}
+          </Route>
         </Routes>
       </Router>
     </>
