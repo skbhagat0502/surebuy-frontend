@@ -30,7 +30,9 @@ const ModelsOfParticularBrand = () => {
             <h6 className="text-3xl font-300 px-2">
               Sell Your {brand?.brand} mobile phones at best price.
             </h6>
-            <p className="font-bold text-xl mt-10">Select model</p>
+            <p className="font-bold text-xl mt-10 max-[500px]:ml-2">
+              Select model
+            </p>
             <div className="flex flex-wrap gap-10 max-[500px]:gap-4 mx-auto my-10 mb-20">
               {modelsOfParticularBrand ? (
                 modelsOfParticularBrand.map((model) => (

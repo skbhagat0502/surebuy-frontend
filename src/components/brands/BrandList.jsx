@@ -24,7 +24,7 @@ const BrandList = () => {
           {loading ? (
             <Loader />
           ) : (
-            <div className="w-5/6 flex gap-10 flex-wrap">
+            <div className="w-5/6 max-[500px]:w-full flex gap-10 max-[500px]:gap-4 flex-wrap max-[500px]:justify-center max-[500px]:items-center">
               {brands.map((brand) => (
                 <NavLink
                   key={brand._id}
